@@ -3,7 +3,7 @@
 #   Author: Benjamin Beaujois
 #   Date: 11/12/2017
 #   Description: This file contains the source code for the option 1 of the coding challenge.
-#   The code generate a graphic to visualize where the camera was when each image was taken and how it was posed, relative to a pattern.
+#   The code generates a graphic to visualize where the camera was when each image was taken and how it was posed, relative to a pattern.
 
 import numpy as np
 import cv2
@@ -45,7 +45,7 @@ def translate(mat, tvec):
 #       - mat: matrix4x4
 #       - direction: 3D vector representing the direction in local coordinates system
 #   return: tuple with the position and direction of the vector in global coordinates system
-#   description: This function get a vector from a transformation matrix and a direction to be able to draw the vector on a 3D graph.
+#   description: This function gets a vector from a transformation matrix and a direction to be able to draw the vector on a 3D graph.
 def getVector(mat, direction):
     #position of the vector
     a = mat.getA()
@@ -120,7 +120,7 @@ def findPattern(pattern, images):
     h,w = pattern.shape
     pts = np.float32([ [0,0],[0,h-1],[w-1,h-1],[w-1,0] ]).reshape(-1,1,2)# the 4 corners of the pattern
     ret = []
-    # find the keypoints and descriptors with ORB
+    #Find the keypoints and descriptors with ORB
     kpp, desp = orb.detectAndCompute(pattern,None)
     for img in images:
         kp, des = orb.detectAndCompute(img,None)  
@@ -140,7 +140,7 @@ def findPattern(pattern, images):
 #   params:
 #       - imgPts: array of arrays of 2D points
 #   return: tuple whith an array of translation and rotation vectors 
-#   description: This function compares the 2D points with a 3D object (the pattern with the real measures) to find the position and rotation of each object.
+#   description: This function compares 2D points with a 3D object (the pattern with real measures) to find the position and rotation of each pattern.
 def posePattern(imgPts):
     objPts = []
     shape = imgs[0].shape[::-1]
@@ -168,7 +168,7 @@ if __name__ == '__main__':
     pts = findPattern(pattern,imgs)
     rvecs, tvecs = posePattern(pts)
 
-    #Create the 3D graph
+    #Create a 3D graph
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 
